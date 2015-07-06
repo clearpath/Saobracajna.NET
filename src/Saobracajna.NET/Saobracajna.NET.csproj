@@ -39,6 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Native\groupSD_DOCUMENT_DATA.cs" />
+    <Compile Include="Native\groupSD_PERSONAL_DATA.cs" />
+    <Compile Include="Native\groupSD_REGISTRATION_DATA.cs" />
+    <Compile Include="Native\groupSD_VEHICLE_DATA.cs" />
+    <Compile Include="Native\NativeConstants.cs" />
+    <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
