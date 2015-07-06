@@ -7,9 +7,9 @@ namespace SaobracajnaNET
 {
 	public class SaobracajnaReader
 	{
-		private AllData ReadAll()
+		public static AllData ReadAll()
 		{
-			var nativeResult = NativeMethods.sdStartup(0);
+			var nativeResult = NativeMethods.sdStartup(1);
 			CheckNativeResult(nativeResult);
 
 			try
@@ -45,10 +45,14 @@ namespace SaobracajnaNET
 					Debug.Print(errorMessage);
 				}
 			}
+
+			return new AllData();
 		}
 
-		private void CheckNativeResult(int nativeResult)
+		static void CheckNativeResult(uint nativeResult)
 		{
+			return;
+
 			if (nativeResult == ErrorCodes.SD_OK)
 				return;
 
@@ -57,11 +61,11 @@ namespace SaobracajnaNET
 			throw new SaobracajnaNETException(errorMessage);
 		}
 
-		private static string GetErrorMessage(int nativeResult)
+		private static string GetErrorMessage(uint nativeResult)
 		{
 			var errorFields = typeof(ErrorCodes).GetFields();
 			var foundField = errorFields
-				.Select(x => new { Name = x.Name, Code = (int)x.GetValue(null) })
+				.Select(x => new { Name = x.Name, Code = (uint)x.GetValue(null) })
 				.FirstOrDefault(x => x.Code == nativeResult);
 
 			if (foundField != null)
@@ -69,7 +73,7 @@ namespace SaobracajnaNET
 				return foundField.Name;
 			}
 
-			return nativeResult.ToString();
+			return "Unrecognized error code: " + nativeResult;
 		}
 	}
 }
