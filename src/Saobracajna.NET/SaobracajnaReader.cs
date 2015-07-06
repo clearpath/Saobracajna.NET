@@ -1,16 +1,13 @@
 ﻿using SaobracajnaNET.Native;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SaobracajnaNET
 {
-	class SaobracajnaReader
+	public class SaobracajnaReader
 	{
-		private void ReadAll()
+		private AllData ReadAll()
 		{
 			var nativeResult = NativeMethods.sdStartup(0);
 			CheckNativeResult(nativeResult);
@@ -24,6 +21,20 @@ namespace SaobracajnaNET
 
 				nativeResult = NativeMethods.SelectReader(readerName);
 				CheckNativeResult(nativeResult);
+
+				nativeResult = NativeMethods.sdProcessNewCard();
+				CheckNativeResult(nativeResult);
+
+
+				var result = new AllData();
+
+				var nativeDocumentData = new groupSD_DOCUMENT_DATA();
+				nativeResult = NativeMethods.sdReadDocumentData(ref nativeDocumentData);
+				CheckNativeResult(nativeResult);
+
+				result.DocumentData = DocumentData.Transcribe(nativeDocumentData);
+
+				return result;
 			}
 			finally
 			{

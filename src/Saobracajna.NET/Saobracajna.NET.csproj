@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllData.cs" />
+    <Compile Include="DocumentData.cs" />
     <Compile Include="Native\ErrorCodes.cs" />
     <Compile Include="Native\groupSD_DOCUMENT_DATA.cs" />
     <Compile Include="Native\groupSD_PERSONAL_DATA.cs" />
