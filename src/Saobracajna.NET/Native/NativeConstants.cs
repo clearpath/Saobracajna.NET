@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Saobracajna.NET
+namespace SaobracajnaNET
 {
-	class NativeConstants
+	static class NativeConstants
 	{
 		/// __eVehicleRegistrationAPI_h__ -> 
 		/// Error generating expression: Value cannot be null.
