@@ -8,6 +8,7 @@ namespace SaobracajnaNET.Native
 {
 	static class ErrorCodes
 	{
+		public const int SD_OK = 0;
 		public const int ERROR_BAD_FORMAT = 11;
 		public const int ERROR_INVALID_ACCESS = 12;
 		public const int ERROR_INVALID_DATA = 13;

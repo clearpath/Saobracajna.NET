@@ -1,4 +1,4 @@
-﻿namespace SaobracajnaNET
+﻿namespace SaobracajnaNET.Native
 {
 	static class NativeMethods
 	{
