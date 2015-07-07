@@ -1,5 +1,6 @@
 ﻿using SaobracajnaNET.Native;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
@@ -51,29 +52,52 @@ namespace SaobracajnaNET
 
 		static void CheckNativeResult(uint nativeResult)
 		{
-			return;
-
 			if (nativeResult == ErrorCodes.SD_OK)
 				return;
 
-			var errorMessage = GetErrorMessage(nativeResult);
+			var message = GetErrorMessage(nativeResult);
 
-			throw new SaobracajnaNETException(errorMessage);
+			throw new SaobracajnaNETException(message, nativeResult);
 		}
 
-		private static string GetErrorMessage(uint nativeResult)
+		private static string GetErrorMessage(uint errorCode)
 		{
+			string result = "Unrecognized error code: " + errorCode;
+
 			var errorFields = typeof(ErrorCodes).GetFields();
 			var foundField = errorFields
-				.Select(x => new { Name = x.Name, Code = (uint)x.GetValue(null) })
-				.FirstOrDefault(x => x.Code == nativeResult);
+				.Select(x => new { Field = x, Code = (uint)x.GetValue(null) })
+				.FirstOrDefault(x => x.Code == errorCode);
 
 			if (foundField != null)
 			{
-				return foundField.Name;
+				result = string.Format("An error occurred. Error code: {0}({1})", foundField.Field.Name, errorCode);
+			}
+			else
+			{
+				errorFields = typeof(ScardError).GetFields();
+				foundField = errorFields
+					.Select(x => new { Field = x, Code = (uint)x.GetValue(null) })
+					.FirstOrDefault(x => x.Code == errorCode);
+
+				if (foundField != null)
+				{
+					var attributes = foundField.Field.GetCustomAttributes(typeof(DescriptionAttribute), false);
+					if (attributes.Length > 0)
+					{
+						var descriptionAttribute = (DescriptionAttribute)attributes[0];
+						result = string.Format("{0} Error code: {1} ({2})", descriptionAttribute.Description, foundField.Field.Name, errorCode);
+
+					}
+					else
+					{
+						result = string.Format("An error occurred. Error code: {0}({1})", foundField.Field.Name, errorCode);
+					}
+				}
 			}
 
-			return "Unrecognized error code: " + nativeResult;
+			return result;
 		}
+
 	}
 }

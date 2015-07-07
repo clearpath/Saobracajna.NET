@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SaobracajnaNET
 {
@@ -25,6 +21,12 @@ namespace SaobracajnaNET
 		{
 		}
 
+		public SaobracajnaNETException(string message, uint errorCode)
+			: base(message)
+		{
+			ErrorCode = errorCode;
+		}
+
 		public SaobracajnaNETException(string message, Exception inner) : base(message, inner)
 		{
 		}
@@ -34,5 +36,7 @@ namespace SaobracajnaNET
 			StreamingContext context) : base(info, context)
 		{
 		}
+
+		public uint ErrorCode { get; private set; }
 	}
 }
