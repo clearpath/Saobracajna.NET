@@ -64,35 +64,22 @@ namespace SaobracajnaNET
 		{
 			string result = "Unrecognized error code: " + errorCode;
 
-			var errorFields = typeof(ErrorCodes).GetFields();
+			var errorFields = typeof(ErrorCodes).GetFields().Union(typeof(ScardError).GetFields());
 			var foundField = errorFields
 				.Select(x => new { Field = x, Code = (uint)x.GetValue(null) })
 				.FirstOrDefault(x => x.Code == errorCode);
 
 			if (foundField != null)
 			{
-				result = string.Format("An error occurred. Error code: {0}({1})", foundField.Field.Name, errorCode);
-			}
-			else
-			{
-				errorFields = typeof(ScardError).GetFields();
-				foundField = errorFields
-					.Select(x => new { Field = x, Code = (uint)x.GetValue(null) })
-					.FirstOrDefault(x => x.Code == errorCode);
-
-				if (foundField != null)
+				var attributes = foundField.Field.GetCustomAttributes(typeof(DescriptionAttribute), false);
+				if (attributes.Length > 0)
 				{
-					var attributes = foundField.Field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-					if (attributes.Length > 0)
-					{
-						var descriptionAttribute = (DescriptionAttribute)attributes[0];
-						result = string.Format("{0} Error code: {1} ({2})", descriptionAttribute.Description, foundField.Field.Name, errorCode);
-
-					}
-					else
-					{
-						result = string.Format("An error occurred. Error code: {0}({1})", foundField.Field.Name, errorCode);
-					}
+					var descriptionAttribute = (DescriptionAttribute)attributes[0];
+					result = string.Format("{0} Error code: {1} ({2})", descriptionAttribute.Description, foundField.Field.Name, errorCode);
+				}
+				else
+				{
+					result = string.Format("An error occurred. Error code: {0} ({1})", foundField.Field.Name, errorCode);
 				}
 			}
 

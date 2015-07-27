@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SaobracajnaNET;
 
 namespace SampleApp
@@ -13,12 +9,22 @@ namespace SampleApp
 		{
 			while (true)
 			{
-				Console.WriteLine("Za citanje saobracane dozvole pritisnite taster Enter. Pritisnite bilo koji drugi taster za kraj rada.");
+				Console.WriteLine(
+@"Za citanje saobracajne dozvole pritisnite bilo koji taster. 
+Za kraj rada pritisnite taster 'K'.");
+
 				var key = Console.ReadKey();
-				if (key.Key == ConsoleKey.Enter)
+				if (key.Key != ConsoleKey.K)
 				{
-					var data = SaobracajnaReader.ReadAll();
-					PrintData(data);
+					try
+					{
+						var data = SaobracajnaReader.ReadAll();
+						PrintData(data);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(e);
+					}
 				}
 				else
 				{
