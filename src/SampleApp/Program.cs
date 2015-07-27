@@ -36,6 +36,7 @@ Za kraj rada pritisnite taster 'K'.");
 		private static void PrintData(AllData data)
 		{
 			PrintStruct(data.DocumentData);
+			PrintStruct(data.PersonalData);
 		}
 
 		private static void PrintStruct(object instance)

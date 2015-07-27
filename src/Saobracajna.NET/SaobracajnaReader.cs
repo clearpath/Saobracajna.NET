@@ -35,6 +35,12 @@ namespace SaobracajnaNET
 
 				result.DocumentData = DocumentData.Transcribe(nativeDocumentData);
 
+				var nativePersonalData = new groupSD_PERSONAL_DATA();
+				nativeResult = NativeMethods.sdReadPersonalData(ref nativePersonalData);
+				CheckNativeResult(nativeResult);
+
+				result.PersonalData = PersonalData.Transcribe(nativePersonalData);
+
 				return result;
 			}
 			finally

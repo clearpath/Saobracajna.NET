@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllData.cs" />
+    <Compile Include="PersonalData.cs" />
     <Compile Include="DocumentData.cs" />
     <Compile Include="Native\ErrorCodes.cs" />
     <Compile Include="Native\groupSD_DOCUMENT_DATA.cs" />
