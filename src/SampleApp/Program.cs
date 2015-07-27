@@ -35,7 +35,20 @@ Za kraj rada pritisnite taster 'K'.");
 
 		private static void PrintData(AllData data)
 		{
-			Console.WriteLine(data.DocumentData.AuthorityIssuing);
+			PrintStruct(data.DocumentData);
+		}
+
+		private static void PrintStruct(object instance)
+		{
+			var type = instance.GetType();
+		
+			var fields = type.GetFields();
+			foreach (var field in fields)
+			{
+				var value = field.GetValue(instance);
+
+				Console.WriteLine("{0,-20}: {1,-50}", type.Name + "." + field.Name, value);
+			}
 		}
 	}
 }

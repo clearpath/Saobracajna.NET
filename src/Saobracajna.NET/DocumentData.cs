@@ -17,8 +17,13 @@ namespace SaobracajnaNET
 			var result = new DocumentData();
 
 			result.AuthorityIssuing = nativeDocumentData.authorityIssuing;
-			/*...*/
-
+			result.CompetentAuthority = nativeDocumentData.competentAuthority;
+			result.ExpiryDate = nativeDocumentData.expiryDate;
+			result.IssuingDate = nativeDocumentData.issuingDate;
+			result.SerialNumber = nativeDocumentData.serialNumber;
+			result.StateIssuing = nativeDocumentData.stateIssuing;
+			result.UnambiguousNumber = nativeDocumentData.unambiguousNumber;
+			
 			return result;
 		}
 	}
