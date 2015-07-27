@@ -22,13 +22,13 @@ namespace SaobracajnaNET.Native
 		///readerName: char*
 		///nameSize: int*
 		[System.Runtime.InteropServices.DllImportAttribute(DLL, EntryPoint = "GetReaderName", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint GetReaderName(int index, System.IntPtr readerName, ref int nameSize);
+		public static extern uint GetReaderName(int index, byte[] readerName, ref int nameSize);
 
 
 		/// Return Type: int
 		///readerName: char*
 		[System.Runtime.InteropServices.DllImportAttribute(DLL, EntryPoint = "SelectReader", CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint SelectReader(System.IntPtr readerName);
+		public static extern uint SelectReader(byte[] readerName);
 
 
 		/// Return Type: int

@@ -15,8 +15,8 @@ namespace SaobracajnaNET
 
 			try
 			{
-				int nameSize = 0;
-				IntPtr readerName = IntPtr.Zero;
+				int nameSize = 10000;
+				byte[] readerName = new byte[nameSize];
 				nativeResult = NativeMethods.GetReaderName(0, readerName, ref nameSize);
 				CheckNativeResult(nativeResult);
 
