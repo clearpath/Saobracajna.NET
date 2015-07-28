@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllData.cs" />
+    <Compile Include="VehicleData.cs" />
+    <Compile Include="RegistrationData.cs" />
     <Compile Include="PersonalData.cs" />
     <Compile Include="DocumentData.cs" />
     <Compile Include="Native\ErrorCodes.cs" />

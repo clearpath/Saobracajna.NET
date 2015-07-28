@@ -35,8 +35,10 @@ Za kraj rada pritisnite taster 'K'.");
 
 		private static void PrintData(AllData data)
 		{
+			PrintStruct(data.VehicleData);
 			PrintStruct(data.DocumentData);
 			PrintStruct(data.PersonalData);
+			Console.WriteLine("{0} pieces of RegistrationData", data.RegistrationData.Count);
 		}
 
 		private static void PrintStruct(object instance)
@@ -48,7 +50,7 @@ Za kraj rada pritisnite taster 'K'.");
 			{
 				var value = field.GetValue(instance);
 
-				Console.WriteLine("{0,-20}: {1,-50}", type.Name + "." + field.Name, value);
+				Console.WriteLine("{0}: {1}", type.Name + "." + field.Name, value);
 			}
 		}
 	}

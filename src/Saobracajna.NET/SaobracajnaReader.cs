@@ -1,5 +1,6 @@
 ﻿using SaobracajnaNET.Native;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -29,17 +30,42 @@ namespace SaobracajnaNET
 
 				var result = new AllData();
 
+
+				var nativeVehicleData = new groupSD_VEHICLE_DATA();
+				nativeResult = NativeMethods.sdReadVehicleData(ref nativeVehicleData);
+				CheckNativeResult(nativeResult);
+
+				result.VehicleData = VehicleData.Transcribe(nativeVehicleData);
+
+
 				var nativeDocumentData = new groupSD_DOCUMENT_DATA();
 				nativeResult = NativeMethods.sdReadDocumentData(ref nativeDocumentData);
 				CheckNativeResult(nativeResult);
 
 				result.DocumentData = DocumentData.Transcribe(nativeDocumentData);
 
+
 				var nativePersonalData = new groupSD_PERSONAL_DATA();
 				nativeResult = NativeMethods.sdReadPersonalData(ref nativePersonalData);
 				CheckNativeResult(nativeResult);
 
 				result.PersonalData = PersonalData.Transcribe(nativePersonalData);
+				
+
+				result.RegistrationData = new List<RegistrationData>();
+				for (int i = 1; i <= 3; i++)
+				{
+					var nativeRegistrationData = new groupSD_REGISTRATION_DATA();
+					nativeResult = NativeMethods.sdReadRegistration(ref nativeRegistrationData, i);
+					CheckNativeResult(nativeResult);
+
+					var registrationData = RegistrationData.Transcribe(nativeRegistrationData);
+
+					result.RegistrationData.Add(registrationData);
+				}
+
+
+
 
 				return result;
 			}
