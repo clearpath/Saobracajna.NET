@@ -8,7 +8,7 @@ Ovaj wrapper je napravljen da bi se to izbeglo.
 Jednostavan nacin rada:
 
 ```csharp
-var data = SaobracajnaReader.ReadAll(descriptor);
+var data = SaobracajnaReader.ReadAll();
 Console.WriteLine(data.VehicleData.VehicleMake);
 ```
 
@@ -17,7 +17,7 @@ Napredni nacin rada:
 ```csharp
 using (var advancedReader = new AdvancedReader())
 {
-	var readerDescriptor = advancedReader.GetReaderDescriptor();
+	var readerDescriptor = advancedReader.GetReaderDescriptor(0);
 	advancedReader.SelectReader(readerDescriptor);
 	advancedReader.ProcessNewCard();
 	
