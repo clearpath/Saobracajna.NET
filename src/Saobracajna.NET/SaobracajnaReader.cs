@@ -21,7 +21,7 @@ namespace SaobracajnaNET
 			return new AllData();
 		}
 
-		public static AllData ReadAll(ReaderDescriptor readerDescriptor)
+		public static AllData ReadAll(ReaderDescriptor readerDescriptor, bool readRegistrationData = false)
 		{
 			using (var advancedReader = new AdvancedReader())
 			{
@@ -35,10 +35,13 @@ namespace SaobracajnaNET
 				result.PersonalData = advancedReader.ReadPersonalData();
 
 				result.RegistrationData = new List<RegistrationData>();
-				for (int i = 1; i <= 3; i++)
+				if (readRegistrationData)
 				{
-					var registrationData = advancedReader.ReadRegistrationData(i);
-					result.RegistrationData.Add(registrationData);
+					for (int i = 1; i <= 3; i++)
+					{
+						var registrationData = advancedReader.ReadRegistrationData(i);
+						result.RegistrationData.Add(registrationData);
+					}	
 				}
 
 				return result;
