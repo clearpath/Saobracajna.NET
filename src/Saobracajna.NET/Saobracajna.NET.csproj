@@ -39,7 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReaderDescriptor.cs" />
     <Compile Include="AllData.cs" />
+    <Compile Include="AdvancedReader.cs" />
     <Compile Include="VehicleData.cs" />
     <Compile Include="RegistrationData.cs" />
     <Compile Include="PersonalData.cs" />
